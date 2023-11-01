@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+		<style>
+			.fragment.blur {
+			  filter: blur(5px);
+			}
+			.fragment.blur.visible {
+			  filter: none;
+			}
+		  </style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!-- slide1 -->
+				<section>
+					<a href="https://www.uninassau.edu.br/">
+						<img src="https://drcurriculo.uninassau.edu.br/imgs/logos/uninassau.png" alt="UNINASSAU logo" style="height: 180px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+					</a>
+					<h3>JavaScript HTML DOM</h3>
+					<p>
+						<small>prof. Dr. <a href="https://linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179">Diogo Rodrigues</a> </small>
+					</p>
+				</section>
+				<!-- slide2 -->
+				<section>
+					<h2>O HTML DOM (modelo de objeto de documento)</h2>
+					<p>
+						Quando uma página da web é carregada, o navegador cria um modelo de objeto de documento da página.
+						
+						O modelo HTML DOM é construído como uma <span class="fragment highlight-red">árvore de objetos </span>:
+					</p>
+				</section>
+				<!-- slide3 -->
+				<section >
+					<h2>árvore de objetos HTML DOM</h2>
+					<img class="r-stretch" src="https://www.w3schools.com/js/pic_htmltree.gif">
+					
+				</section>
+				<!-- slide4 -->
+				
+				<section>
+					<p> Com o modelo de objeto, o JavaScript obtém todo o poder necessário para criar HTML dinâmico:<p>
+					<ul>
+						<li class="fragment custom blur"> alterar e remover todos os elementos e atributos HTML da página</li>
+						<li class="fragment custom blur"> alterar todos os estilos CSS da página</li>
+						<li class="fragment custom blur"> adicionar novos elementos e atributos HTML</li>
+						<li class="fragment custom blur"> reagir a todos os eventos HTML existentes na página</li>
+					</ul>
+				</section>
+				<!-- slide 5 -->
+				
+				<section>
+					<h2> O que é HTML DOM?</h2>
+						<p>O HTML DOM é um modelo de objeto padrão e interface de programação para HTML. Ele define:</p>
+					<ul>
+						<li class="fragment custom blur"> Os elementos HTML como objetos</li>
+						<li class="fragment custom blur"> As propriedades de todos os elementos HTML</li>
+						<li class="fragment custom blur"> Os métodos para acessar todos os elementos HTML</li>
+						<li class="fragment custom blur"> Os eventos para todos os elementos HTML</li>
+					</ul>
+				</section>
+
+				<!-- slide 6 -->
+				<section>
+					<h2>O método getElementById</h2>
+					<p>
+						A maneira mais comum de acessar um elemento HTML é usar o  <span class="fragment highlight-red">id</span> do elemento.
+					</p>
+				</section>
+				<!-- slide 7 -->
+				<section>
+					<h2>A propriedade innerHTML</h2>
+					<p>
+						A maneira mais fácil de obter o conteúdo de um elemento é usando a propriedade <span class="fragment highlight-red">innerHTML</span> .
+						A propriedade innerHTML  é útil para obter ou substituir o conteúdo de elementos HTML. 
+					</p>
+				</section>
+				<!-- slide 8 -->
+				<section data-transition="slide" data-background="#b5533c" data-background-transition="zoom">
+					<h2>Exemplo</h2>
+					<p>
+						O exemplo a seguir altera o conteúdo (o innerHTML) do $lt; p $gt; elemento com id="demo":
+					</p>
+					<pre><code><script type="text/template">
+<html>
+	<body>
+	
+	<p id="demo"></p>
+	
+	<script>
+	document.getElementById("demo").innerHTML = "Hello World!";
+	</script>
+	
+	</body>
+	</html>
+</script></code></pre>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+
+  				// Parallax background size
+  				parallaxBackgroundSize: '2100px 900px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+							
+  				// Number of pixels to move the parallax background per slide
+  				// - Calculated automatically unless specified
+  				// - Set to 0 to disable movement along an axis
+  				// parallaxBackgroundHorizontal: 200,
+  				// parallaxBackgroundVertical: 50,
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!-- slide1 -->
+				<section>
+					<a href="https://revealjs.com">
+						<img src="https://drcurriculo.uninassau.edu.br/imgs/logos/uninassau.png" alt="reveal.js logo" style="height: 180px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+					</a>
+					<h3>React</h3>
+					<p>
+						<small>prof. Dr. <a href="http://hakim.se">Diogo Rodrigues</a> </small>
+					</p>
+				</section>
+              <!-- slide2-->
+				<section>
+					<h2>Introdução</h2>
+					<p>
+						React é uma biblioteca JavaScript para construção de interfaces de usuário.
+
+						React é usado para construir aplicativos de página única.
+
+						React nos permite criar componentes de UI reutilizáveis.
+				</section>
+				<!-- slide3 -->
+				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
+					<h2>Criando aplicativo React</h2>
+					<p>
+						Para aprender e testar o React, você deve configurar um ambiente React em seu computador. 
+						É nescessário fazer instalação no NODE.JS e depois Execute este comando para criar um aplicativo 
+						React chamado my-react-app
+					</p>
+					<pre><code class="hljs javascript">npx create-react-app my-react-app</code></pre>
+				</section>
+				<!-- slide4 -->
+				<section data-transition="slide" data-background="#b5533c" data-background-transition="zoom">
+					<h2>Execute o aplicativo React</h2>
+					<p>
+						Execute este comando para ir para o my-react-appdiretório:
+					</p>
+					<pre><code class="hljs javascript">cd my-react-app</code></pre>
+					<p>
+						Execute este comando para executar o aplicativo React my-react-app:
+					</p>
+					<pre><code class="hljs javascript">npm start</code></pre>
+								</section>
+				<!-- slide5 -->
+				<section data-background="https://www.w3schools.com/react/screenshot_myfirstreact.png">
+					
+				</section>
+				<!-- slide6 -->
+				<section>
+					<h2>O que é React?</h2>
+					<p>
+						React, às vezes chamado de framework JavaScript frontend, é uma biblioteca JavaScript criada pelo Facebook.
+
+					React é uma ferramenta para construir componentes de UI.
+					</p>
+				</section>
+				<!-- slide7 -->
+				<section>
+					<h2>Como funciona o React?</h2>
+					<p>
+						React cria um DOM VIRTUAL na memória. Em vez de manipular diretamente o DOM do navegador, o React cria um DOM virtual na memória, onde faz todas as manipulações necessárias,
+						 antes de fazer as alterações no DOM do navegador.
+					</p>
+				</section>
+				<!-- slide8 -->
+				<section>
+					<h2>O React só muda o que precisa ser mudado!</h2>
+					<p>
+						O React descobre quais alterações foram feitas e altera apenas o que precisa ser alterado.
+					</p>
+				</section>
+				<!-- slide9 -->
+				<section>
+					<h2>História do React.JS</h2>
+					<ol>
+						<li>A versão atual do React.JS é V18.0.0 (abril de 2022).</li>
+              			<li>O lançamento inicial ao público (V0.3.0) foi em julho de 2013.</li>
+						<li>React.JS foi usado pela primeira vez em 2011 para o recurso Newsfeed do Facebook.</li>
+						<li>O engenheiro de software do Facebook, Jordan Walke, o criou.</li>
+						<li>A versão atual create-react-appé v5.0.1 (abril de 2022).</li>
+						<li>create-react-appinclui ferramentas integradas como webpack, Babel e ESLint.</li>
+					</ol>
+				</section>
+				<!--slide10-->
+				<!-- <section data-auto-animate>
+					<h2 data-id="code-title">React direto do HTML</h2>
+					<pre data-id="code-animation"><code class="hljs html" data-trim data-line-numbers="|4,8-11|17|22-24"><script type="text/template">
+						<!DOCTYPE html>
+						<html>
+						  <head>
+						    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+						    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+						    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+						  </head>
+						  <body>
+						
+						    <div id="mydiv"></div>
+						
+						    <script type="text/babel">
+						      function Hello() {
+						        return <h1>Hello World!</h1>;
+						      }
+						  
+						      const container = document.getElementById('mydiv');
+						      const root = ReactDOM.createRoot(container);
+						      root.render(<Hello />)
+						    </script>
+
+						  </body>
+						</html>
+					</script></code></pre>
+				</section> -->
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
