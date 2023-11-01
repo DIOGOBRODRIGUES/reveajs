@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+		<style>
+			.fragment.blur {
+			  filter: blur(5px);
+			}
+			.fragment.blur.visible {
+			  filter: none;
+			}
+		  </style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!-- slide1 -->
+				<section>
+					<a href="https://www.uninassau.edu.br/">
+						<img src="https://drcurriculo.uninassau.edu.br/imgs/logos/uninassau.png" alt="UNINASSAU logo" style="height: 180px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+					</a>
+					<h3>Array Javascript </h3>
+					<p>
+						<small>prof. Dr. <a href="https://linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179">Diogo Rodrigues</a> </small>
+					</p>
+				</section>
+				<!-- slide2 -->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Introdução</h2>
+					<p>Um array é uma variável especial que pode conter mais de um valor:
+					</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim>
+						const cars = ["Saab", "Volvo", "BMW"];
+
+					</code></pre>
+					
+				</section>
+				<!-- slide3 -->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Acessando Elementos do Array</h2>
+					<p>Você acessa um elemento do array referindo-se ao número do índice :
+
+					</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim>
+						const cars = ["Saab", "Volvo", "BMW"];
+						let car = cars[0];
+
+					</code></pre>
+					
+				</section>
+					<!-- slide4 -->
+					<section data-auto-animate>
+						<h2 data-id="code-title">Alterando um elemento da matriz</h2>
+						<p>Esta instrução altera o valor do primeiro elemento em cars:</p>
+						<pre data-id="code-animation"><code class="hljs javascript" data-trim>
+							cars[0] = "Opel";
+						</code></pre>
+						
+					</section>
+				<!-- slide 5 -->
+				
+				<section>
+					<h2> Arrays são objetos</h2>
+						<p>O HTML DOM é um modelo de objeto padrão e interface de programação para HTML. Ele define:</p>
+					<ul>
+						<li class="fragment custom blur">Arrays são um tipo especial de objetos. O operador typeof em JavaScript retorna “objeto” para arrays.
+						</li>
+						<li class="fragment custom blur"> Os objetos usam nomes para acessar seus “membros”. Neste exemplo, person.firstName retorna John:
+						</li>
+					</ul>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim>
+						const person = {firstName:"John", lastName:"Doe", age:46};
+					</code></pre>
+				</section>
+
+				<!-- slide 6 -->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Percorrendo um array</h2>
+					<p>Uma maneira de percorrer um array é usando um loop for:
+					</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+						const fruits = ["Banana", "Orange", "Apple", "Mango"];
+						let fLen = fruits.length;
+						let text = "<ul>";
+						for (let i = 0; i < fLen; i++) {
+							text += "<li>" + fruits[i] + "</li>";
+						}
+						text += "</ul>";
+					</code></pre>
+					
+				</section>
+			<!-- slide 6 -->
+			<section data-auto-animate>
+				<h2 data-id="code-title">Função forEach()</h2>
+				<p>Você também pode usar a função Array.forEach():
+				</p>
+				<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+					const fruits = ["Banana", "Orange", "Apple", "Mango"];
+
+					let text = "<ul>";
+					fruits.forEach(myFunction);
+					text += "</ul>";
+					
+					function myFunction(value) {
+					  text += "<li>" + value + "</li>";
+					}
+				</code></pre>
+			
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+
+  				// Parallax background size
+  				parallaxBackgroundSize: '2100px 900px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+							
+  				// Number of pixels to move the parallax background per slide
+  				// - Calculated automatically unless specified
+  				// - Set to 0 to disable movement along an axis
+  				// parallaxBackgroundHorizontal: 200,
+  				// parallaxBackgroundVertical: 50,
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
