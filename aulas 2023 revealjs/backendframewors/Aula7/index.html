@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Aula 7 React Render HTML / JSX / Componentes</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/league.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+		<style>
+			.fragment.blur {
+			  filter: blur(5px);
+			}
+			.fragment.blur.visible {
+			  filter: none;
+			}
+		  </style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+					<!-- slide1 -->
+					<section>
+						<a href="https://www.uninassau.edu.br/">
+							<img src="https://drcurriculo.uninassau.edu.br/imgs/logos/uninassau.png" alt="UNINASSAU logo" style="height: 180px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+						</a>
+						<h3>Relacionamentos </h3>
+						<p>
+							<small>prof. Dr. <a href="https://linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179">Diogo Rodrigues</a> </small>
+						</p>
+					</section>
+				<!-- slide 6 -->
+				<section>
+					<h2> Relacionamentos no MongoDB</h2>
+					<p>
+						O MongoDB não implementa integridade referencial! Logo, não existe o conceito de chave estrangeira para documentos.
+					</p>
+
+					<p>Existem duas maneiras de se expressar relacionamentos
+						entre documentos no MongoDB.</p>
+				</section>
+				<!-- slide 6 -->
+				<section>
+					<h2> Referências entre documentos</h2>
+					<p>
+						É possível guardar o _id de um documento como um atributo em outro documento.
+					</p>
+				</section>
+				<!-- slide 6 -->
+				<section>
+					<h2> Documentos Embutidos:</h2>
+					<p>
+						MongoDB permite guardar um
+						documento inteiro como um atributo em um documento (SubDocumentos).
+					</p>
+				</section>
+				<!-- slide 6 -->
+				<section>
+					<h2>Banco de dados relacionais</h2>
+					<img class="r-stretch" src="https://qcon-assets-production.s3.amazonaws.com/images/provas/86240/quest_o%2070.png" alt="modelo entidade relacionamento">
+					<p>Exemplo modelo entidade relacionamento</p>
+				</section>
+				<!-- slide 6 -->
+				<section>
+					<h2>Banco de dados relacionais</h2>
+					<img class="r-stretch" src="https://sae.unb.br/cae/conteudo/unbfga/sbd/imagens/modelagem2.png" alt="modelo relacional">
+					<p>Exemplo modelo relacional</p>
+				</section>
+				<!-- slide 6 -->
+				<section>
+					<h2>Banco de dados NOSQL</h2>
+					<img class="r-stretch" src="https://miro.medium.com/v2/resize:fit:1400/0*T46EgZPzh6TJS95j." alt="MODELO DE DOCUMENTOS (REFERÊNCIAS)">
+					<p>MODELO DE DOCUMENTOS (REFERÊNCIAS)</p>
+				</section>
+				<!-- slide 6 -->
+				<section>
+					<h2>Banco de dados NOSQL</h2>
+					<img class="r-stretch" src="https://www.luiztools.com.br/wp-content/uploads/2020/05/extended_reference1-o1xbjhqpca-1.png" alt="MODELO DE DOCUMENTOS
+					(REFERÊNCIAS/EMBUTIDOS)">
+					<p>MODELO DE DOCUMENTOS
+						(REFERÊNCIAS/EMBUTIDOS)</p>
+				</section>
+				<!-- slide2 -->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Entidade Empresar</h2>
+					<p>Precisamos criar um entidade empresa pra ser tratada separa da Vaga, pois precisamos amarzenar mais detalhes sobre a empresa no sistema. 
+					</p>
+				</section>
+				<!-- slide3 -->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Criando modelo empresa</h2>
+					<p>models\empresa.js</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers  = "2-7|8-9|10-11|12-13">
+						import mongoose from "mongoose";
+						//definindo modelo
+						const empresaSchema  = new mongoose.Schema({
+						    id:{type: mongoose.Schema.Types.ObjectId},
+						    nome:{type: String, required: true},
+						    endereco:{type: String},
+						    CNPJ: {type: Number}
+						},{versionKey:false} //ferramenta do mogoose que nao vamos utilizar 
+						);
+						//criando modelo mogoose
+						const empresa =  mongoose.model("Empresa", empresaSchema);
+						//export do modelo empresa 
+						export default {empresa, empresaSchema};
+					</code></pre>
+				</section>
+				<!-- slide4-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Criar rotas e controller Empresa </h2>
+					<p>Mesmo modelo de controller e rotas, apenas subistituir vaga, por empresa.  
+					</p>
+				</section>
+				<!-- slide4 -->
+				<section data-auto-animate>
+					<h2 data-id="code-title">model vagas</h2>
+					<p>precisamos atualizar o modelo de vagas para receber a empresa </p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers  = "6">
+						import mongoose from "mongoose";
+
+						const vagaSchema  = new mongoose.Schema({
+						    id:{type: mongoose.Schema.Types.ObjectId},
+						    titulo:{type: String, required: true},
+						    empresa:{type: String},
+						    salario: {type: Number}
+						},{versionKey:false}
+						);
+						const vaga =  mongoose.model("Vagas", vagaSchema);
+
+						export default vaga;
+					</code></pre>
+				</section>
+					<!-- slide5 -->
+					<section data-auto-animate>
+						<h2 data-id="code-title">model vagas</h2>
+						<p>precisamos atualizar o modelo de vagas para receber a empresa </p>
+						<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers  = "2-3|7-9">
+							import mongoose from "mongoose";
+							//importando modulo especifico  
+							import {empresaSchema} from "./empresa.js"
+							const vagaSchema  = new mongoose.Schema({
+							    id:{type: mongoose.Schema.Types.ObjectId},
+							    titulo:{type: String, required: true},
+							    //dicionando a propiedade empresaSchema
+							    //juntar dois shcemas 
+							    empresa:empresaSchema,
+							    salario: {type: Number}
+							},{versionKey:false}
+							);
+							const vaga =  mongoose.model("Vagas", vagaSchema);
+
+							export default vaga;
+						</code></pre>
+					</section>
+				<!-- slide 6 -->
+			
+
+					
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+					// Parallax background size
+					parallaxBackgroundSize: '2100px 900px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+							
+							// Number of pixels to move the parallax background per slide
+							// - Calculated automatically unless specified
+							// - Set to 0 to disable movement along an axis
+							// parallaxBackgroundHorizontal: 200,
+							// parallaxBackgroundVertical: 50,
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
