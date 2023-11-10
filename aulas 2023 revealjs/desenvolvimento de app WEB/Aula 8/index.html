@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Aula 8 Props | Events</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/league.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+		<style>
+			.fragment.blur {
+			  filter: blur(5px);
+			}
+			.fragment.blur.visible {
+			  filter: none;
+			}
+		  </style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+					<!-- slide1 -->
+					<section>
+						<a href="https://www.uninassau.edu.br/">
+							<img src="https://drcurriculo.uninassau.edu.br/imgs/logos/uninassau.png" alt="UNINASSAU logo" style="height: 180px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+						</a>
+						<h3>Props | Events </h3>
+						<p>
+							<small>prof. Dr. <a href="https://linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179">Diogo Rodrigues</a> </small>
+						</p>
+					</section>
+				<!-- slide2 -->
+				<section data-auto-animate>
+					<h2 data-id="code-title">React Props</h2>
+					<p>Props são argumentos passados ​​para componentes React por meio de atributos HTML.</p>
+				</section>
+				<!-- slide 3-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Exemplo</h2>
+					<p>Para enviar props para um componente, use a mesma sintaxe dos atributos HTML:
+					</p>
+					<p>Adicione um atributo "marca" ao elemento Carro:</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim >
+						const myElement = &ltCar brand="Ford" />;
+					</code></pre>
+					<p>Use o atributo brand no componente:</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim >
+						function Car(props) {
+							return <h2>I am a { props.brand }!</h2>;
+						  }
+					</code></pre>
+				</section>
+
+				<!-- slide 4-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Exemplo</h2>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim   data-line-numbers>
+						import React from 'react';
+						import ReactDOM from 'react-dom/client';
+
+						function Car(props) {
+						  return <h2>I am a { props.brand }!</h2>;
+						}
+
+						const myElement = &lt Car brand="Ford" />;
+
+						const root = ReactDOM.createRoot(document.getElementById('root'));
+						root.render(myElement);
+					</code></pre>
+				</section>
+
+				<!-- slide 4-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Exemplo</h2>
+					<p>Se você tem uma variável para enviar, e não uma string, basta colocar o nome da variável entre chaves:</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+						function Car(props) {
+							return <h2>I am a { props.brand }!</h2>;
+						  }
+						  
+						  function Garage() {
+							const carName = "Ford";
+							return (
+							  &lt>
+								<h1>Who lives in my garage?</h1>
+								&ltCar brand= { carName } /&gt
+							  &lt/>
+							);
+						  }
+					</code></pre>
+				</section>
+
+				<!-- slide 5-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Exemplo</h2>
+					<p>Ou se fosse um objeto:</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+						function Car(props) {
+							return <h2>I am a { props.brand.model }!</h2>;
+						  }
+						  
+						  function Garage() {
+							const carInfo = { name: "Ford", model: "Mustang" };
+							return (
+							  &lt>
+								<h1>Who lives in my garage?</h1>
+								&ltCar brand= { carInfo } /&gt
+							  &lt/>
+							);
+						  }
+					</code></pre>
+				</section>
+				<!-- slide6-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">React Events </h2>
+					<p>Assim como os eventos HTML DOM, o React pode realizar ações com base nos eventos do usuário.
+						React tem os mesmos eventos do HTML: clicar, alterar, passar o mouse etc.
+					</p>
+				</section>
+				<!-- slide 7-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Adicionando Eventos</h2>
+					<p>Os eventos React são escritos na sintaxe camelCase:
+						onClick em vez de onclick.
+					</p>
+					<p>Os manipuladores de eventos React são escritos entre chaves:
+						onClick={shoot}  em vez de onClick="shoot()".
+					</p>
+				</section>
+				<!-- slide 8-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Exemplo</h2>
+					<p>Coloque a função shoot dentro da componente Football:</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers = 5-7|9-12>
+						import React from 'react';
+						import ReactDOM from 'react-dom/client';
+
+						function Football() {
+						  const shoot = () => {
+						    alert("Great Shot!");
+						  }
+					  
+						  return (
+						    <button onClick={shoot}>Take the shot!</button>
+						  );
+						}
+
+						const root = ReactDOM.createRoot(document.getElementById('root'));
+						root.render(&ltFootball />);
+					</code></pre>
+				</section>
+				<!-- slide 9-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Exemplo</h2>
+					<p>Envie "Gol!" como parâmetro para a shoot função, usando a função de seta:</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers >
+					
+						function Football() {
+							const shoot = (a, b) => {
+							  alert(b.type);
+							  /*
+							  'b' represents the React event that triggered the function,
+							  in this case the 'click' event
+							  */
+							}
+						  
+							return (
+							  <button onClick={(event) => shoot("Goal!", event)}>Take the shot!</button>
+							);
+						  }
+					</code></pre>
+				</section>
+				
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+					// Parallax background size
+					parallaxBackgroundSize: '2100px 900px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+							
+							// Number of pixels to move the parallax background per slide
+							// - Calculated automatically unless specified
+							// - Set to 0 to disable movement along an axis
+							// parallaxBackgroundHorizontal: 200,
+							// parallaxBackgroundVertical: 50,
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
