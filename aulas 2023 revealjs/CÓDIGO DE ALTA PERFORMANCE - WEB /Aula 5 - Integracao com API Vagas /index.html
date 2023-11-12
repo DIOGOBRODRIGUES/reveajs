@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Aula 5  Integração com API</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
@@ -12,6 +12,15 @@
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+		<style>
+			.fragment.blur {
+			  filter: blur(5px);
+			}
+			.fragment.blur.visible {
+			  filter: none;
+			}
+		  </style>
 	</head>
 	<body>
 		<div class="reveal">
@@ -26,11 +35,272 @@
 						<small>prof. Dr. <a href="https://linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179">Diogo Rodrigues</a> </small>
 					</p>
 				</section>
+
 				<!-- slide2 -->
 				<section data-auto-animate>
-					<h2 data-id="code-title">Criando componente de pesquisa</h2>
-					<p>.
+					<h2 data-id="code-title">Preparar o front para consumir a API</h2>
+					<p>Nesta etapa precisamos desenvolver o front para que o usuário consiga interagir com banco de dados.
 					</p>
+				</section>
+
+				<!-- slide3 -->
+				<section data-auto-animate>
+					<h2 data-id="code-title">AXIOS</h2>
+					<p>Axios é um cliente HTTP para o node.js e para o navegador. É isomórfico (= pode rodar no navegador e no node.js com a mesma base de código). No lado do servidor usa o código nativo do node.js - o módulo http, enquanto no lado do cliente (navegador) usa XMLHttpRequests.
+					</p>
+				</section>
+	
+				<!--slide 4-->
+				<section>
+					<h2>Características</h2>
+					<ul>
+						<li class="fragment custom blur">Faz XMLHttpRequests do navegador                   </li>
+						<li class="fragment custom blur">Faça requisições http do node.js                   </li>
+						<li class="fragment custom blur">Intercepta requisições e respostas                 </li>
+						<li class="fragment custom blur">Transforma os dados de requisições e de respostas  </li>
+						<li class="fragment custom blur">Transforma dados automaticamente para JSON         </li>
+					</ul>
+				</section>
+
+				<!-- slide 5-->
+				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
+					<h2>Instalando o AXIOS</h2>
+					<p>
+						Blioteca nescessária para realizar as requeisicões HTTP, para insso vamos intalar o axios na noss aplicação.
+					</p>
+					<pre><code class="hljs javascript">$ npm install axios</code></pre>
+				</section>
+
+				<!-- slide 6-->
+				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
+					<h2>requisição GET</h2>
+					<p>
+						Podemos criar Apis personalizadas com AXIOS. O método create recebe pelo menos um objeto, nesse caso o baseURL é o caminho que axios vai utilizar  para buscar os dados como era feito no postman.
+					</p>
+					<pre><code class="hljs javascript">const vagasAPI = axios.create({ 
+													baseURL: "http://localhost:8000/vagas"
+												 });
+					</code></pre>
+				</section>
+
+				<!-- slide 7-->
+				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
+					<h2>requisição GET</h2>
+					<p>
+					  Podemos utilizar o método get na instância do AXIOS para recuperar todas as informações. 
+					</p>
+					<pre><code class="hljs javascript">      const response = await vagasAPI.get('/')
+						return response.data
+					</code></pre>
+				</section>
+
+
+				<!-- slide 8-->
+				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
+					<h2>requisição GET</h2>
+					<p>
+					  Para utilizar o retorno do get em qualquer parte do programa basta importa, no exemplo abaixo o get está armazenado em serviços 
+
+					</p>
+					<pre><code class="hljs javascript"> import { getVagas } from '../servicos/vagas'
+
+					</code></pre>
+				</section>
+
+				<!--slide 9-->
+				<section>
+					<h2>Aplicando no EmpregaEu</h2>
+				
+				</section>
+	
+				<!-- slide 10-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Arquitetura</h2>
+					<p>Nesta fase do projeto sugiro criar uma pasta chamada serviços para gerenciar os dados que vem da API.
+					</p>
+				</section>
+
+				<!--slide 11-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">servicos/vagas.js</h2>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers="|1-3|5-12|14-21|23-27"><script type="text/template">
+						
+						/*Impoter a biblioteca que você vai usar
+						 para fazer as requisições HTTP*/
+						import axios from "axios";
+
+						/*criar Apis personalizadas com AXIOS, create recebe 
+						pelo menos um objeto, nesse caso o baseURL é o caminho 
+						que axios vai utilizar para buscar os dados 
+						como era feito no postman
+						*/
+						const vagasAPI = axios.create({ 
+								baseURL: "http://localhost:8000/vagas" 
+							});
+
+						//primeira funcao sera get 
+						async function getVagas(){
+						    //  pegar todas a vagas sem precisar passar parametros 
+						     const response = await vagasAPI.get('/')
+	
+						    //  retorna todas as vagas da nossa requisicao  
+						    return response.data
+						}
+
+						//aqui vamos dar o export de varias funcoes porisso 
+						//nao utilizaremos o default
+						export {
+						    getVagas
+						}
+
+					</script></code></pre>
+				</section>
+
+				<!-- slide 12 -->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Revisando - Hook de gerenciamento de Estado</h2>
+					<p>useState - permite gerênciar estados de uma componente 
+					</p>
+				</section>
+
+
+				<!--slide 13-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Exemplo hook useState</h2>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers="|5-6|11-16|20-21"><script type="text/template">
+						
+						import { useState } from 'react'; 
+
+						function CounterFunction() {
+						
+						//count-- valor atual e setCount -- atualização do valor
+						    const [count, setCount] = useState(0);
+						
+						    const increment = ()=> {
+						        setCount (prevCount => prevCount + 1);
+						    };
+						/*
+						 Nessa aplicacao toda vez que o usuario clicar no botao 
+						vai adicionar mais 1 no contador, mas toda vez que atulizar 
+						o contador quero mostrar na tela o novo valor, para isso 
+						vamos utilizar o **usestate** para atualizar o valor das 
+						variaveis e renderize nossa componte com valor atualizado*/
+						    return ( 
+						        <div>
+						            <h2>Countador usando hook useState</h2>
+									<!-- //agora podemos o valor atualizado do count -->
+						            <p>contagem: (count)</p>
+						            <button onClick={increment}>adicionar</button>
+						        </div>
+						    )
+						export default CounterFunction;
+
+					</script></code></pre>
+				</section>
+
+					<!-- slide 14 -->
+					<section data-auto-animate>
+						<h2 data-id="code-title">Revisando - Hook useEffect</h2>
+						<p> Permite que execute efeitos colaterais nas compoonente. Exemplos de efeitos colaterais: Busca de dados, atualização direta do DOM, temporizadores.
+						</p>
+					</section>
+
+
+					<!--slide 15-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Exemplo hook useEffect</h2>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers="|5-6|11-16|20-21"><script type="text/template">
+						
+						import { useState, useEffect } from "react";
+						import ReactDOM from "react-dom/client";
+						
+						function Timer() {
+						const [count, setCount] = useState(0);
+						  useEffect(() => {
+							setTimeout(() => {
+							  setCount((count) => count + 1);
+							}, 1000);
+						  });
+						
+						  return <h1>I've rendered {count} times!</h1>;
+						}
+						
+						const root = ReactDOM.createRoot(document.getElementById('root'));
+						root.render(<Timer />);
+
+					</script></code></pre>
+				</section>
+
+				<!-- slide 14 -->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Atualizando  Componente de Pesquisa de Vagas</h2>
+				</section>
+				<!--slide 15-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">pesquisa/index.js</h2>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers="|7-11|14-19|21-30|40-45|48-53"><script type="text/template">
+						
+						import Input from '../Input'
+						import styled from 'styled-components'
+						import { useEffect, useState } from 'react'
+						import { getVagas } from '../servicos/vagas'
+						
+						function Pesquisa() {
+							/*utilizando o useState para ataulizar nomes
+							das vagas na caixa de pesquisa */ 
+							const [vagasPesquisadas, setVagasPesquisadas] = useState([])
+							// useState para atulizar informacoes que estao vindo da API 
+							const [vagas, setVagas] = useState([])
+						
+						
+							/* Assim que o site abrir deve carregar as vagas da base
+							de dados, para isso vamos utilizar o useEffect
+							*/
+							useEffect (()=>{
+								fetchVagas()
+							}, [])
+						
+							/* Para chamar uma funcao async para ser 
+							consumida pelo useEffect,
+							 devemos criala externamente.  
+						    */
+							async function fetchVagas(){
+								//salvar dentro de uma constante o resultado do get
+								const vagasDaAPI = await getVagas ()
+								//atualizar estado com dados que estão chegando da base
+								setVagas(vagasDaAPI)
+							}
+	
+							return (
+								<PesquisaContainer>
+									<Titulo>Encontre a vaga tão procurada</Titulo>
+									<Input
+										placeholder="digite nome ou tema da vaga"
+										/*evento de blur muda a cor do imput além de fazer captura 
+										do conteudo pelo parametro evento */
+										onBlur={evento => {
+											//armazenando o que esta digitado em uma variavel 
+											const textoDigitado = evento.target.value
+											//retorna as vagas filtradas, do banco de dados
+											const resultadoPesquisa =  vagas.filter( vaga => vaga.titulo.includes(textoDigitado))
+											//salvando na variavel do states para ataulizar o DOM
+											setVagasPesquisadas(resultadoPesquisa)
+										}}
+									/>
+									{/* utilizando Map para mostrar na tela a lista de vagas */}
+									{ vagasPesquisadas.map( vaga => (
+										<Resultado>
+											<p>{vaga.titulo}</p>
+										</Resultado>
+									) ) }
+								</PesquisaContainer>
+							)
+						}
+						
+						export default Pesquisa
+					</script></code></pre>
+				</section>
+				
 				</section>
 			</div>
 		</div>
