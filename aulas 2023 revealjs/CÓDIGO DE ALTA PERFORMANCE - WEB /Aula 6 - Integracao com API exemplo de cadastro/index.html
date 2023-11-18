@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Aula 6 Integração com API- Implementação do cadastro</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/dracula.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+		<style>
+			.fragment.blur {
+			  filter: blur(5px);
+			}
+			.fragment.blur.visible {
+			  filter: none;
+			}
+		  </style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!-- slide1 -->
+				<section>
+					<a href="https://www.uninassau.edu.br/">
+						<img src="https://drcurriculo.uninassau.edu.br/imgs/logos/uninassau.png" alt="UNINASSAU logo" style="height: 180px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+					</a>
+					<h3>Integração com API- Implementação do cadastro </h3>
+					<p>
+						<small>prof. Dr. <a href="https://linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179">Diogo Rodrigues</a> </small>
+					</p>
+				</section>
+
+				<!-- slide2 -->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Tela de cadastro</h2>
+					<p>Desenvolver uma iterface gráfica para que o usuário consida inserir  dados no banco.  
+					</p>
+				</section>
+	
+				<!--slide 3-->
+				<section>
+					<h2>Atualizações</h2>
+					<ul>
+						<li class="fragment custom blur">Atualizar arquivo de servicos com fução de cadastar vaga.</li>
+						<li class="fragment custom blur">Criar rota de cadastro de vaga                  </li>
+						<li class="fragment custom blur">Inserir nova rota no index.js               </li>
+						
+					</ul>
+				</section>
+
+				
+				<!--slide 4-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">servicos/vagas.js</h2>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers="|17-24|47-49|"><script type="text/template">
+						
+						import axios from "axios";
+
+						//criar uma api personalizada
+						//create recebe um bojrto de configuração
+						//Base URL  é o endereco que vamos consultar.
+						const vagasApi = axios.create(
+							{baseURL: "http://localhost:8000/vagas"});
+						
+						async function getVagas(){
+							try {
+								const response = await vagasApi.get('/');
+								return response.data;
+							} catch (error) {
+								console.error("Erro ao buscar dados na API ", error);
+							}
+						}
+						
+						async function criarVaga(vaga) {
+							try {
+								const response = await vagasApi.post('/', vaga);
+								return response.data;
+							} catch (error) {
+								console.error("Erro ao criar vaga na API ", error);
+							}
+						}
+						
+						async function atualizarVaga(id, vaga) {
+							try {
+								const response = await vagasApi.put(`/${id}`, vaga);
+								return response.data;
+							} catch (error) {
+								console.error(`Erro ao atualizar vaga com 
+									o ID ${id} na API `, error);
+							}
+						}
+						
+						async function excluirVaga(id) {
+							try {
+								const response = await vagasApi.delete(`/${id}`);
+								return response.data;
+							} catch (error) {
+								console.error(`Erro ao excluir vaga com o 
+									ID ${id} na API `, error);
+							}
+						}
+						
+						export {
+							getVagas,
+							criarVaga,
+							atualizarVaga,
+							excluirVaga
+						};
+						
+
+					</script></code></pre>
+				</section>
+
+				<!--slide 5-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">rotas/vagas.js</h2>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers="|4-9|10-17|22-25|35-45|"><script type="text/template">
+						
+					import React, { useState } from 'react';
+					import { criarVaga } from '../servicos/vagas';
+					
+					//criando hooks para cada campo 
+					function CadastroVaga() {
+					    const [titulo, setTitulo] = useState('');
+					    const [empresa, setEmpresa] = useState('');
+					    const [salario, setSalario] = useState('');
+					
+					    const handleCadastro = async () => {
+					        try {
+					            // Chame a função criarVaga do seu serviço
+					            const novaVaga = await criarVaga({
+					                titulo: titulo,
+					                empresa: empresa,
+					                salario: salario
+					            });
+							
+					            // Faça algo com a nova vaga, se necessário
+					            console.log('Nova vaga criada:', novaVaga);
+							
+					            // Limpe os campos do formulário após o cadastro
+					            setTitulo('');
+					            setEmpresa('');
+					            setSalario('');
+					        } catch (error) {
+					            console.error('Erro ao cadastrar vaga:', error);
+					        }
+					    };
+					
+					    return (
+					        <div>
+					            <h2>Cadastro de Vaga</h2>
+					            <form>
+					                <label>Título:</label>
+					                <input type="text" value={titulo} onChange={(e) => setTitulo(e.target.value)} />
+								
+					                <label>Empresa:</label>
+					                <input type="text" value={empresa} onChange={(e) => setEmpresa(e.target.value)} />
+								
+					                <label>Salário:</label>
+					                <input type="number" value={salario} onChange={(e) => setSalario(e.target.value)} />
+								
+					                <button type="button" onClick={handleCadastro}>
+					                    Cadastrar Vaga
+					                </button>
+					            </form>
+					        </div>
+					    );
+					}
+
+					export default CadastroVaga;
+
+						
+
+					</script></code></pre>
+				</section>
+
+					<!--slide 6-->
+					<section data-auto-animate>
+						<h2 data-id="code-title">index.js</h2>
+						<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers="|14|30|"><script type="text/template">
+							
+							import { StrictMode } from "react";
+							import { createRoot } from "react-dom/client";
+							/*
+							BrowserRouter - responsavel por encapsular as rotas 
+							Routes - anunciador das rotas
+							Route -  as rotas propriamente dita
+							*/
+							
+							import { BrowserRouter, Routes, Route } from "react-router-dom";
+							import Header from "./componentes/Header";
+							import Home from "./rotas/Home";
+							import Vagas from "./rotas/Vagas";
+							import Cadastro from "./rotas/CadastroVaga";
+							import GerenciamentoVagas from "./rotas/GerenciamentoVagas";
+							
+							const rootElement = document.getElementById("root");
+							const root = createRoot(rootElement);
+							
+							root.render(
+							  <StrictMode>
+								<BrowserRouter>
+								  {/* inserir o Header para aparecer em todas as paginas */}
+								  <Header />
+								  <Routes>
+									{/* parametros, path: caminho do site,  element: o que será carregado
+									na pagina  */}
+									<Route path="/cadastro" element={<Cadastro/>} />
+									<Route path="/Home" element={<Home />} />
+									<Route path="/Vagas" element={<Vagas />} />
+									<Route path="/Gerenciamento" element={<GerenciamentoVagas />} />
+								  </Routes>
+								</BrowserRouter>
+							  </StrictMode>
+							);
+							
+	
+						</script></code></pre>
+					</section>
+				
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
