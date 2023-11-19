@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Aula 8 - JSON e LOCALSTORAGE </title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/dracula.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+		<style>
+			.fragment.blur {
+			  filter: blur(5px);
+			}
+			.fragment.blur.visible {
+			  filter: none;
+			}
+		  </style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!-- slide1 -->
+				<section>
+					<a href="https://www.uninassau.edu.br/">
+						<img src="https://drcurriculo.uninassau.edu.br/imgs/logos/uninassau.png" alt="UNINASSAU logo" style="height: 180px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+					</a>
+					<h3> JSON e LOCALSTORAGE  </h3>
+					<p>
+						<small>prof. Dr. <a href="https://linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179">Diogo Rodrigues</a> </small>
+					</p>
+				</section>
+
+				<!-- slide2 -->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Javascript JSON</h2>
+					<p><strong>JSON</strong> é um formato para armazenar e transportar dados.
+						É frequentemente usado quando os dados são enviados de um servidor para uma página da web.  
+					</p>
+				</section>
+	
+				<!--slide 3-->
+				<section>
+					<h2>O que é JSON?</h2>
+					<ul>
+						<li class="fragment custom blur">JSON significa <strong>J</strong>ava  <strong>S</strong>cript <strong>O</strong>bject <strong>N</strong>otation.</li>
+						<li class="fragment custom blur">JSON é um formato leve de intercâmbio de dados                  </li>
+						<li class="fragment custom blur">JSON é independente de linguagem         </li>
+						<li class="fragment custom blur">JSON é "autodescritivo" e fácil de entender       </li>
+						
+					</ul>
+				</section>
+
+				
+				<!--slide 4-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Exemplo JSON</h2>
+					<p>Esta sintaxe JSON define um objeto de funcionários: uma matriz de 3 registros de funcionários (objetos):</p>
+					<pre data-id="code-animation"><code class="hljs json" data-trim data-line-numbers><script type="text/template">
+						
+						{
+							"employees":[
+							  {"firstName":"John", "lastName":"Doe"},
+							  {"firstName":"Anna", "lastName":"Smith"},
+							  {"firstName":"Peter", "lastName":"Jones"}
+							]
+							}
+
+					</script></code></pre>
+				</section>
+
+				<!-- slide5 -->
+				<section data-auto-animate>
+					<h2 data-id="code-title">O formato JSON é avaliado para objetos JavaScript</h2>
+					<p>O formato JSON é sintaticamente idêntico ao código para criação de objetos JavaScript.
+						Devido a essa semelhança, um programa JavaScript pode facilmente converter dados JSON em objetos JavaScript nativos.
+					</p>
+				</section>
+		
+				<!--slide 6-->
+				<section>
+					<h2>Regras de sintaxe JSON</h2>
+					<ul>
+						<li class="fragment custom blur">Os dados estão em pares nome/valor      </li>
+						<li class="fragment custom blur">Os dados são separados por vírgulas</li>
+						<li class="fragment custom blur">Colchetes contêm matrizes</li>
+						
+					</ul>
+				</section>
+				<!--slide 7 -->
+				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
+					<h2>Dados JSON – um nome e um valor</h2>
+					<p>
+						Os dados JSON são gravados como pares nome/valor, assim como as propriedades do objeto JavaScript.
+
+						Um par nome/valor consiste em um nome de campo (entre aspas duplas), seguido por dois pontos, seguido por um valor:
+					</p>
+					<pre><code class="hljs json">"firstName":"John"</code></pre>
+					<p><strong>Os nomes JSON requerem aspas duplas. Nomes JavaScript não.</strong></p>
+				</section>
+				<!--slide 8 -->
+				<section data-transition="slide" data-background="#b5533c" data-background-transition="zoom">
+					<h2>Objetos JSON</h2>
+					<p>
+						Objetos JSON são escritos entre chaves. Assim como em JavaScript, os objetos podem conter vários pares nome/valor:
+					</p>
+					<pre><code class="hljs json" style="word-wrap: break-word;">{"firstName":"John", "lastName":"Doe"}</code></pre>
+				</section>
+					<!--slide 9 -->
+					<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
+						<h2>Matrizes JSON</h2>
+						<p>
+							Matrizes JSON são escritas entre colchetes.
+							Assim como em JavaScript, um array pode conter objetos:
+						</p>
+						<pre><code class="hljs json">"employees":[
+							{"firstName":"John", "lastName":"Doe"},
+							{"firstName":"Anna", "lastName":"Smith"},
+							{"firstName":"Peter", "lastName":"Jones"}
+						  ]</code></pre>
+						
+					</section>
+				<!--slide 10-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Convertendo um texto JSON em um objeto JavaScript</h2>
+					<p>Um uso comum do JSON é <strong> dados de um servidor</strong> web e exibi-los em uma página web.
+						Para simplificar, isso pode ser demonstrado usando uma string como entrada.
+						Primeiro, crie uma string JavaScript contendo a sintaxe JSON</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers><script type="text/template">
+						
+						let text = '{ "employees" : [' +
+						'{ "firstName":"John" , "lastName":"Doe" },' +
+						'{ "firstName":"Anna" , "lastName":"Smith" },' +
+						'{ "firstName":"Peter" , "lastName":"Jones" } ]}';
+					</script></code></pre>
+					
+				</section>
+
+				<!--slide 11-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Convertendo um texto JSON em um objeto JavaScript</h2>
+					<p>Em seguida, use a função integrada do JavaScript JSON.parse()para converter a string em um objeto JavaScript:</p>
+				
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+						const obj = JSON.parse(text);
+					</script></code></pre>
+				</section>
+
+				<!-- slide 12-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">Exemplo</h2>
+					
+					<pre data-id="code-animation"><code class="hljs html" data-trim data-line-numbers="10-13|15|17"><script type="text/template">
+						
+						<!DOCTYPE html>
+						<html>
+						<body>
+						
+						<h2>Create Object from JSON String</h2>
+						
+						<p id="exemplo"></p>
+						
+						<script>
+						let text = '{"employees":[' +
+						'{"firstName":"John","lastName":"Doe" },' +
+						'{"firstName":"Anna","lastName":"Smith" },' +
+						'{"firstName":"Peter","lastName":"Jones" }]}';
+						
+						const obj = JSON.parse(text);
+						document.getElementById("exemplos").innerHTML =
+						obj.employees[1].firstName + " " + obj.employees[1].lastName;
+						</script>
+
+						</body>
+						</html>
+
+					</script></code></pre>
+				</section> 
+
+				<!-- slide 12-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">API de armazenamento na Web <strong>localStorage</strong></h2>
+				</section> 
+				
+				<!-- slide 13 -->
+				<section data-auto-animate>
+					<h2 data-id="code-title">O objeto localStorage</h2>
+					<p>O objeto localStorage fornece acesso a um armazenamento local para um determinado site. Ele permite armazenar, ler, adicionar, modificar e excluir itens de dados desse domínio.
+
+						Os dados são armazenados sem prazo de validade e <strong>não serão excluídos quando o navegador for fechado.</strong>
+						
+						Os dados estarão disponíveis por dias, semanas e anos.  
+					</p>
+				</section>
+				
+				<!--slide 14-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">O método setItem()</h2>
+					<p>O método localStorage.setItem() armazena um item de dados em um armazenamento. 
+						Leva um nome e um valor como parâmetros:
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers><script type="text/template">
+						localStorage.setItem("name", "John Doe");
+					</script></code></pre>
+				</section>
+
+				<!--slide 15-->
+				<section data-auto-animate>
+					<h2 data-id="code-title">O método getItem()</h2>
+					<p>
+						O método localStorage.getItem() recupera um item de dados do armazenamento. Leva um nome como parâmetro
+					</p>
+				
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+						localStorage.getItem("name");
+					</script></code></pre>
+				</section>
+
+				<!--
+				
+
+					-->
+			
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
