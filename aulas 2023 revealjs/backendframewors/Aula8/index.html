@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Aula 8 Atualizando Controller Cadastrar Vaga</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/league.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+		<style>
+			.fragment.blur {
+			  filter: blur(5px);
+			}
+			.fragment.blur.visible {
+			  filter: none;
+			}
+		  </style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+					<!-- slide1 -->
+					<section>
+						<a href="https://www.uninassau.edu.br/">
+							<img src="https://drcurriculo.uninassau.edu.br/imgs/logos/uninassau.png" alt="UNINASSAU logo" style="height: 180px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+						</a>
+						<h3>Cadastrar vaga completa</h3>
+						<p>
+							<small>prof. Dr. <a href="https://linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179">Diogo Rodrigues</a> </small>
+						</p>
+					</section>
+				<!-- slide 2 -->
+				<section data-auto-animate>
+					<h2 data-id="code-title">static async cadastrarVaga(req,res)</h2>
+					<p>precisamos atualizar o modelo de vagas para receber a empresa </p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers  = "1-2|9-10|12-15|17-22|24-27|37-45">
+						//import do modelo empresa 
+						import { empresa } from "../models/empresa.js";
+						import vaga from "../models/vagas.js";
+						static async cadastrarVaga(req,res){
+							//Salvar o corpo da requisição na vagaNova
+							const vagaNova = req.body;
+					  
+							  try{
+								  //armzenando objeto mogoose na variavel empresaEncontrada
+								  const empresaEncontrada = await empresa.findById(vagaNova.empresa)
+								  /* 
+								  1- copiamos  todas as propiedades de vagaNova  {...vagaNova} 
+								  para o novo objeto vagaCompleta. 
+								  Isso é feito usando o operador de espalhamento (...)
+								  ,que cria cópias das propriedades do objeto original.
+
+								  2- criar uma nova propieadade 
+								  empresa: { ...empresaEncontrada._doc }: 
+								  no objeto vagaCompleta. O valor desta propriedade é um novo objeto 
+								  criado com o espalhamento de todas as propriedades do objeto empresaEncontrada._doc.
+								   O _doc sugere que empresaEncontrada é um objeto Mongoose, 
+								   já que o _doc é a propriedade que contém os dados reais do documento.
+								  
+								  Então, resumindo, vagaCompleta é um novo objeto que contém todas 
+								  as propriedades de vagaNova e uma propriedade adicional chamada 
+								  empresa que contém todas as propriedades de empresaEncontrada._doc. 
+								  */
+
+								  const vagaCompleta ={...vagaNova, empresa:{...empresaEncontrada._doc}}
+								  /*
+								   1- Create é utilizado para criar um novo documento no banco de dados
+								   com os dados fornecidos como argumento.
+								 	
+								   2- vagaCriada agora contém o documento recém-criado no banco de dados.
+								   */
+
+								  const vagaCriada = await vaga.create(vagaCompleta);
+								  //vagaNova é o retorno do metodo create do objeto criado 
+								  res.status(201).json({message: 'Vaga cadastrada com sucesso!', vaga: vagaCriada});
+							  }
+							  catch(erro){
+								  // 500 erro interno do servidor  
+								  //erro.message é a mensagem de erro que o mogoose retorna
+								  res.status(500).json({error:`${erro.message} -falha ao cadatrar vaga`, });
+							  }
+						  }
+					  
+					</code></pre>
+				</section>
+				
+			
+
+					
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+					// Parallax background size
+					parallaxBackgroundSize: '2100px 900px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+							
+							// Number of pixels to move the parallax background per slide
+							// - Calculated automatically unless specified
+							// - Set to 0 to disable movement along an axis
+							// parallaxBackgroundHorizontal: 200,
+							// parallaxBackgroundVertical: 50,
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
